@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1627797698581050200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e694803fae0da4bacb9e71e1cd8b66, type: 3}
+  m_Name: DebugNode
+  m_EditorClassIdentifier: 
+  _onlyId: cac19eb3-af43-4b77-b678-76e42934683b
+  _parents:
+  - {fileID: 2069650657262524774}
+  _childs: []
+  Log: "\u6D4B\u8BD5"
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75cefb7ca3f2b5f4ea4ed94342e0a893, type: 3}
+  m_Name: LogicGraph
+  m_EditorClassIdentifier: 
+  _logicNodeList:
+  - {fileID: 2069650657262524774}
+  - {fileID: -1627797698581050200}
+  LogicGraphData: {fileID: 7618768818251751041}
+  DefaultNode: {fileID: 2069650657262524774}
+--- !u!114 &2069650657262524774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80355ad45c199f24881e6a786e35a45b, type: 3}
+  m_Name: StartNode
+  m_EditorClassIdentifier: 
+  _onlyId: ec7f58ab-0806-44c7-8b5e-8609e68916e7
+  _parents: []
+  _childs:
+  - {fileID: -1627797698581050200}
+--- !u!114 &7618768818251751041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba392755e6b8824cb46fd98e9be85d1, type: 3}
+  m_Name: LogicGraphData
+  m_EditorClassIdentifier: 
+  Title: LogicGraph
+  LogicGroups: []
+  LogicNodes:
+  - OnlyId: ec7f58ab-0806-44c7-8b5e-8609e68916e7
+    Title: "\u5F00\u59CB"
+    Pos: {x: -5, y: -77}
+    Parents: []
+    Childs:
+    - cac19eb3-af43-4b77-b678-76e42934683b
+  - OnlyId: cac19eb3-af43-4b77-b678-76e42934683b
+    Title: "\u65E5\u5FD7"
+    Pos: {x: 216, y: -71}
+    Parents:
+    - ec7f58ab-0806-44c7-8b5e-8609e68916e7
+    Childs: []

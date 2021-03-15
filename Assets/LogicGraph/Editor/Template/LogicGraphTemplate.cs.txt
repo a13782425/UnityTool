@@ -1,0 +1,14 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Logic
+{
+#if UNITY_EDITOR
+    [LogicGraph("{CLASS_NAME}")]
+#endif
+    public class {CLASS_NAME} : LogicGraphBase
+    {
+    }
+}
