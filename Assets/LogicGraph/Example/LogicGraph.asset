@@ -1,5 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8333101927010212385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e694803fae0da4bacb9e71e1cd8b66, type: 3}
+  m_Name: DebugNode
+  m_EditorClassIdentifier: 
+  _onlyId: 096904d1-dfde-49c7-953a-591897f0009b
+  _parents:
+  - {fileID: 4121372890582997354}
+  _childs: []
+  Log: "\u6D4B\u8BD52"
 --- !u!114 &-1627797698581050200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32,6 +49,8 @@ MonoBehaviour:
   _logicNodeList:
   - {fileID: 2069650657262524774}
   - {fileID: -1627797698581050200}
+  - {fileID: 4121372890582997354}
+  - {fileID: -8333101927010212385}
   LogicGraphData: {fileID: 7618768818251751041}
   DefaultNode: {fileID: 2069650657262524774}
 --- !u!114 &2069650657262524774
@@ -50,6 +69,25 @@ MonoBehaviour:
   _parents: []
   _childs:
   - {fileID: -1627797698581050200}
+  - {fileID: 4121372890582997354}
+--- !u!114 &4121372890582997354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88b424124d036547821981fec0543a6, type: 3}
+  m_Name: DelayNode
+  m_EditorClassIdentifier: 
+  _onlyId: 26d3ca5b-10db-4a66-861b-c9b2cfb0c72a
+  _parents:
+  - {fileID: 2069650657262524774}
+  _childs:
+  - {fileID: -8333101927010212385}
+  time: 10
 --- !u!114 &7618768818251751041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,9 +109,23 @@ MonoBehaviour:
     Parents: []
     Childs:
     - cac19eb3-af43-4b77-b678-76e42934683b
+    - 26d3ca5b-10db-4a66-861b-c9b2cfb0c72a
   - OnlyId: cac19eb3-af43-4b77-b678-76e42934683b
     Title: "\u65E5\u5FD7"
     Pos: {x: 216, y: -71}
     Parents:
     - ec7f58ab-0806-44c7-8b5e-8609e68916e7
+    Childs: []
+  - OnlyId: 26d3ca5b-10db-4a66-861b-c9b2cfb0c72a
+    Title: "\u5EF6\u65F6"
+    Pos: {x: 144, y: -279}
+    Parents:
+    - ec7f58ab-0806-44c7-8b5e-8609e68916e7
+    Childs:
+    - 096904d1-dfde-49c7-953a-591897f0009b
+  - OnlyId: 096904d1-dfde-49c7-953a-591897f0009b
+    Title: "\u65E5\u5FD7"
+    Pos: {x: 351, y: -308}
+    Parents:
+    - 26d3ca5b-10db-4a66-861b-c9b2cfb0c72a
     Childs: []

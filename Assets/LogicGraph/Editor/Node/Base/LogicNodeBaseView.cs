@@ -199,7 +199,8 @@ namespace Logic.Editor
             label.text = defaultValue;
             return label;
         }
-        protected TextField GetTextField(string titleText = "TestField", string defaultValue = "")
+
+        protected TextField GetInputField(string titleText, string defaultValue)
         {
             TextField textField = new TextField();
             textField.label = titleText;
@@ -208,7 +209,7 @@ namespace Logic.Editor
             textField.value = defaultValue;
             return textField;
         }
-        protected IntegerField GetIntergerField(string titleText = "IntField", int defaultValue = 0)
+        protected IntegerField GetInputField(string titleText, int defaultValue)
         {
             IntegerField intField = new IntegerField();
             intField.label = titleText;
@@ -216,6 +217,72 @@ namespace Logic.Editor
             intField.value = defaultValue;
             return intField;
         }
+        protected FloatField GetInputField(string titleText, float defaultValue)
+        {
+            FloatField floatField = new FloatField();
+            floatField.label = titleText;
+            SetBaseFieldStyle(floatField);
+            floatField.value = defaultValue;
+            return floatField;
+        }
+        protected DoubleField GetInputField(string titleText, double defaultValue)
+        {
+            DoubleField doubleField = new DoubleField();
+            doubleField.label = titleText;
+            SetBaseFieldStyle(doubleField);
+            doubleField.value = defaultValue;
+            return doubleField;
+        }
+        protected EnumField GetInputField(string titleText, Enum defaultValue)
+        {
+            EnumField enumField = new EnumField();
+            enumField.label = titleText;
+            SetBaseFieldStyle(enumField);
+            enumField.value = defaultValue;
+            return enumField;
+        }
+        protected Vector2Field GetInputField(string titleText, Vector2 defaultValue)
+        {
+            Vector2Field vector2Field = new Vector2Field();
+            vector2Field.label = titleText;
+            SetBaseFieldStyle(vector2Field);
+
+            vector2Field.value = defaultValue;
+            return vector2Field;
+        }
+        protected Vector3Field GetInputField(string titleText, Vector3 defaultValue)
+        {
+            Vector3Field vector3Field = new Vector3Field();
+            vector3Field.label = titleText;
+            SetBaseFieldStyle(vector3Field);
+            vector3Field.value = defaultValue;
+            return vector3Field;
+        }
+        protected Vector4Field GetInputField(string titleText, Vector4 defaultValue)
+        {
+            Vector4Field vector4Field = new Vector4Field();
+            vector4Field.label = titleText;
+            SetBaseFieldStyle(vector4Field);
+            vector4Field.value = defaultValue;
+            return vector4Field;
+        }
+        protected Vector2IntField GetInputField(string titleText, Vector2Int defaultValue)
+        {
+            Vector2IntField vector2IntField = new Vector2IntField();
+            vector2IntField.label = titleText;
+            SetBaseFieldStyle(vector2IntField);
+            vector2IntField.value = defaultValue;
+            return vector2IntField;
+        }
+        protected Vector3IntField GetInputField(string titleText, Vector3Int defaultValue)
+        {
+            Vector3IntField vector3IntField = new Vector3IntField();
+            vector3IntField.label = titleText;
+            SetBaseFieldStyle(vector3IntField);
+            vector3IntField.value = defaultValue;
+            return vector3IntField;
+        }
+
         /// <summary>
         /// 设置字段组件的默认样式
         /// </summary>
@@ -443,7 +510,7 @@ namespace Logic.Editor
             /// 二者皆有
             /// </summary>
             All = In | Out
-        } 
+        }
         #endregion
     }
 }

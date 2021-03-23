@@ -22,7 +22,7 @@ namespace Logic.Editor
         }
         public override void ShowUI()
         {
-            var text = GetTextField("日志:", node.Log);
+            var text = GetInputField("日志:", node.Log);
             text.RegisterCallback<InputEvent>(onInputEvent);
             this.AddUI(text);
         }
