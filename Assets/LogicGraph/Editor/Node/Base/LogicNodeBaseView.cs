@@ -236,6 +236,7 @@ namespace Logic.Editor
         protected EnumField GetInputField(string titleText, Enum defaultValue)
         {
             EnumField enumField = new EnumField();
+            enumField.Init(defaultValue);
             enumField.label = titleText;
             SetBaseFieldStyle(enumField);
             enumField.value = defaultValue;

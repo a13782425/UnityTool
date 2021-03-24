@@ -187,10 +187,10 @@ namespace Logic.Editor
                             if (graphData == null)
                             {
                                 graphData = new LogicEditorConfigData.LogicGraphConfig();
-                                graphData.GraphName = logicGraph.LogicName;
                                 graphData.GraphClassName = item.FullName;
                                 ConfigData.LogicGraphConifgs.Add(graphData);
                             }
+                            graphData.GraphName = logicGraph.LogicName;
                             graphData.IsRefresh = true;
                         }
                     }

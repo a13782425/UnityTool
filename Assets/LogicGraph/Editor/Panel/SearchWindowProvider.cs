@@ -50,7 +50,7 @@ namespace Logic.Editor
         private void AddRecommendTree(List<SearchTreeEntry> searchTrees)
         {
             Type startType = typeof(StartNode);
-            List<LogicNodeConfig> logicNodes = _graphConfigData.LogicNodes;
+            List<LogicNodeConfig> logicNodes = _graphConfigData.LogicNodes.ToList();
             logicNodes.Sort((a, b) =>
             {
                 if (a.UseCount == b.UseCount)
