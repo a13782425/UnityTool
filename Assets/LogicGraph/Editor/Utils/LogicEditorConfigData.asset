@@ -22,6 +22,15 @@ MonoBehaviour:
     GraphClassName: Logic.DefaultLogicGraph
     IsRefresh: 1
     LogicNodes:
+    - NodeName: "\u5EF6\u65F6"
+      NodeFullName: "\u7CFB\u7EDF/\u5EF6\u65F6"
+      NodeLayers:
+      - "\u7CFB\u7EDF"
+      - "\u5EF6\u65F6"
+      NodeClassName: Logic.DelayNode
+      NodeViewClassName: Logic.Editor.DelayNodeView
+      IsRefresh: 1
+      UseCount: -2147483648
     - NodeName: "\u5F00\u59CB"
       NodeFullName: "\u7CFB\u7EDF/\u5F00\u59CB"
       NodeLayers:
@@ -44,7 +53,7 @@ MonoBehaviour:
     - GroupName: DefaultGroup
       NodeConfigs: []
       UseCount: -2147483648
-      TempId: 001033a6-ad38-4aa9-9ff4-bc36ba2e3efb
+      TempId: 6f7bacce-226e-4813-ad0d-4fe94d2def09
     LogicFormats:
     - FormatName: "\u6587\u672C"
       FormatClassName: Logic.Editor.TextFormat

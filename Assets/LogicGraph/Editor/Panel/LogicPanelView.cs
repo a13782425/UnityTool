@@ -265,7 +265,7 @@ namespace Logic.Editor
                 foreach (var item in ConfigData.LogicGraphConifgs)
                 {
                     entries.Add(new SearchTreeGroupEntry(new GUIContent(item.GraphName)) { level = 1, userData = item });
-                    var datas = ConfigData.LogicGraphs.TakeWhile(a => a.GraphClassName == item.GraphClassName);
+                    var datas = ConfigData.LogicGraphs.Where(a => a.GraphClassName == item.GraphClassName).ToList();
                     foreach (var graph in datas)
                     {
                         entries.Add(new SearchTreeEntry(new GUIContent(graph.LogicName)) { level = 2, userData = graph });

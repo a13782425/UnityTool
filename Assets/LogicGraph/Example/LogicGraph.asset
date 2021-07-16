@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: DebugNode
   m_EditorClassIdentifier: 
   _onlyId: 096904d1-dfde-49c7-953a-591897f0009b
-  _parents:
-  - {fileID: 4121372890582997354}
+  _parents: []
   _childs: []
   Log: "\u6D4B\u8BD52"
 --- !u!114 &-1627797698581050200
@@ -32,7 +31,8 @@ MonoBehaviour:
   _onlyId: cac19eb3-af43-4b77-b678-76e42934683b
   _parents:
   - {fileID: 2069650657262524774}
-  _childs: []
+  _childs:
+  - {fileID: 4121372890582997354}
   Log: "\u6D4B\u8BD5"
 --- !u!114 &11400000
 MonoBehaviour:
@@ -85,8 +85,8 @@ MonoBehaviour:
   _onlyId: 26d3ca5b-10db-4a66-861b-c9b2cfb0c72a
   _parents:
   - {fileID: 2069650657262524774}
-  _childs:
-  - {fileID: -8333101927010212385}
+  - {fileID: -1627797698581050200}
+  _childs: []
   time: 10
 --- !u!114 &7618768818251751041
 MonoBehaviour:
@@ -112,20 +112,20 @@ MonoBehaviour:
     - 26d3ca5b-10db-4a66-861b-c9b2cfb0c72a
   - OnlyId: cac19eb3-af43-4b77-b678-76e42934683b
     Title: "\u65E5\u5FD7"
-    Pos: {x: 216, y: -71}
-    Parents:
-    - ec7f58ab-0806-44c7-8b5e-8609e68916e7
-    Childs: []
-  - OnlyId: 26d3ca5b-10db-4a66-861b-c9b2cfb0c72a
-    Title: "\u5EF6\u65F6"
-    Pos: {x: 144, y: -279}
+    Pos: {x: 380, y: -99}
     Parents:
     - ec7f58ab-0806-44c7-8b5e-8609e68916e7
     Childs:
-    - 096904d1-dfde-49c7-953a-591897f0009b
+    - 26d3ca5b-10db-4a66-861b-c9b2cfb0c72a
+  - OnlyId: 26d3ca5b-10db-4a66-861b-c9b2cfb0c72a
+    Title: "\u5EF6\u65F6"
+    Pos: {x: 694, y: -333}
+    Parents:
+    - ec7f58ab-0806-44c7-8b5e-8609e68916e7
+    - cac19eb3-af43-4b77-b678-76e42934683b
+    Childs: []
   - OnlyId: 096904d1-dfde-49c7-953a-591897f0009b
     Title: "\u65E5\u5FD7"
-    Pos: {x: 351, y: -308}
-    Parents:
-    - 26d3ca5b-10db-4a66-861b-c9b2cfb0c72a
+    Pos: {x: 896, y: -227}
+    Parents: []
     Childs: []

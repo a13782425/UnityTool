@@ -66,7 +66,14 @@ namespace Logic.Editor
         /// </summary>
         protected VisualElement m_content { get; private set; }
 
+        private static Action<BasePortData, LogicNodeBase, Port> onSetPortTarget;
         #endregion
+
+        static LogicNodeBaseView()
+        {
+            System.Reflection.MethodInfo method = typeof(BasePortData).GetMethod("m_setData", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            onSetPortTarget = (Action<BasePortData, LogicNodeBase, Port>)Delegate.CreateDelegate(typeof(Action<BasePortData, LogicNodeBase, Port>), null, method);
+        }
 
         public LogicNodeBaseView()
         {
@@ -76,33 +83,10 @@ namespace Logic.Editor
             topContainer.style.height = 24;
             m_content = topContainer.parent;
             m_content.style.backgroundColor = new Color(0, 0, 0, 0.5f);
-            CheckTitle();
-            AddPort();
-            RefreshExpandedState();
+            m_checkTitle();
+
         }
-        /// <summary>
-        /// 添加端口
-        /// </summary>
-        private void AddPort()
-        {
-            PortConfig portConfig = GetPortConfig();
-            if ((portConfig.PortType & PortEnum.In) > PortEnum.None)
-            {
-                //存在进端口
-                Input = Port.Create<Edge>(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(Port));
-                Input.portColor = Color.blue;
-                Input.portName = "In";
-                inputContainer.Add(Input);
-            }
-            if ((portConfig.PortType & PortEnum.Out) > PortEnum.None)
-            {
-                //存在出端口
-                Output = Port.Create<Edge>(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(Port));
-                Output.portColor = Color.red;
-                Output.portName = "Out";
-                outputContainer.Add(Output);
-            }
-        }
+
 
         #region 公共方法
         public void Initialize(LogicPanelData panelData, LogicNodeData nodeData)
@@ -110,6 +94,8 @@ namespace Logic.Editor
             _nodeData = nodeData;
             _panelData = panelData;
             OnlyId = _nodeData.OnlyId;
+            m_addPort();
+            RefreshExpandedState();
         }
 
         /// <summary>
@@ -158,14 +144,17 @@ namespace Logic.Editor
         {
         }
         /// <summary>
-        /// 可以接受那种节点连接进来
+        /// 是否可接受连接
         /// </summary>
         /// <param name="waitLinkNode">准备连接的节点</param>
         /// <returns></returns>
-        public virtual bool CanAcceptLink(LogicNodeBaseView waitLinkNode)
-        {
-            return true;
-        }
+        public virtual bool CanAcceptLink(LogicNodeBase waitLinkNode) => true;
+        /// <summary>
+        /// 可连接
+        /// </summary>
+        /// <param name="targetPort">目标端口数据</param>
+        /// <returns></returns>
+        public virtual bool CanLink(LogicNodeBase targetPort) => true;
         /// <summary>
         /// 获取到端口配置
         /// </summary>
@@ -193,6 +182,22 @@ namespace Logic.Editor
         {
             m_content.Add(ui);
         }
+
+        /// <summary>
+        /// 获得一个端口
+        /// </summary>
+        /// <returns></returns>
+        protected T GetPort<T>(string titleText, Color color, Direction dir = Direction.Output) where T : BasePortData, new()
+        {
+            var port = Port.Create<Edge>(Orientation.Horizontal, dir, Port.Capacity.Multi, typeof(Port));
+            port.portColor = color;
+            port.portName = titleText;
+            T portData = new T();
+            onSetPortTarget(portData, this.Target, port);
+            port.userData = portData;
+            return portData;
+        }
+
         protected Label GetLabel(string defaultValue = "")
         {
             Label label = new Label();
@@ -407,19 +412,52 @@ namespace Logic.Editor
 
         #endregion
 
+        #region 私有方法
+        /// <summary>
+        /// 添加端口
+        /// </summary>
+        private void m_addPort()
+        {
+            PortConfig portConfig = GetPortConfig();
+            if ((portConfig.PortType & PortEnum.In) > PortEnum.None)
+            {
+                //存在进端口
+                Input = Port.Create<Edge>(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(Port));
+                Input.portColor = Color.blue;
+                Input.portName = "In";
+                var portData = new InPortData();
+                onSetPortTarget(portData, this.Target, Input);
+                portData.onCanAcceptLink += CanAcceptLink;
+                Input.userData = portData;
+                inputContainer.Add(Input);
+            }
+            if ((portConfig.PortType & PortEnum.Out) > PortEnum.None)
+            {
+                //存在出端口
+                Output = Port.Create<Edge>(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(Port));
+                Output.portColor = Color.red;
+                Output.portName = "Out";
+                var portData = new OutPortData();
+                onSetPortTarget(portData, this.Target, Output);
+                Output.userData = portData;
+                outputContainer.Add(Output);
+            }
+        }
+        #endregion
+
         #region Title
 
         private TextField _titleEditor;
         private Label _titleItem;
         private bool _editTitleCancelled = false;
-        private void CheckTitle()
+        private void m_checkTitle()
         {
             //找到Title对应的元素
             _titleItem = this.Q<Label>("title-label");
             _titleItem.style.flexGrow = 1;
             _titleItem.style.marginRight = 6;
             _titleItem.style.unityTextAlign = TextAnchor.MiddleCenter;
-            _titleItem.RegisterCallback<MouseDownEvent>(OnMouseDownEvent);
+            _titleItem.RegisterCallback<MouseDownEvent>(m_onMouseDownEvent);
             _titleEditor = new TextField();
             _titleItem.parent.Add(_titleEditor);
             _titleEditor.style.flexGrow = 1;
@@ -427,10 +465,10 @@ namespace Logic.Editor
             _titleEditor.style.unityTextAlign = TextAnchor.MiddleCenter;
             _titleEditor.style.display = DisplayStyle.None;
             VisualElement visualElement2 = _titleEditor.Q(TextInputBaseField<string>.textInputUssName);
-            visualElement2.RegisterCallback<FocusOutEvent>(OnEditTitleFinished);
-            visualElement2.RegisterCallback<KeyDownEvent>(OnTitleEditorOnKeyDown);
+            visualElement2.RegisterCallback<FocusOutEvent>(m_onEditTitleFinished);
+            visualElement2.RegisterCallback<KeyDownEvent>(m_onTitleEditorOnKeyDown);
         }
-        private void OnTitleEditorOnKeyDown(KeyDownEvent evt)
+        private void m_onTitleEditorOnKeyDown(KeyDownEvent evt)
         {
             switch (evt.keyCode)
             {
@@ -444,7 +482,7 @@ namespace Logic.Editor
             }
         }
 
-        private void OnEditTitleFinished(FocusOutEvent evt)
+        private void m_onEditTitleFinished(FocusOutEvent evt)
         {
             _titleItem.style.display = DisplayStyle.Flex;
             _titleEditor.style.display = DisplayStyle.None;
@@ -456,7 +494,7 @@ namespace Logic.Editor
             _editTitleCancelled = true;
         }
 
-        private void OnMouseDownEvent(MouseDownEvent evt)
+        private void m_onMouseDownEvent(MouseDownEvent evt)
         {
             if (evt.clickCount == 2 && evt.button == 0)
             {

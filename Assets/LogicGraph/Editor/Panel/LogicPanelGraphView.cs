@@ -53,12 +53,10 @@ namespace Logic.Editor
             {
                 return compatiblePorts;
             }
-            LogicNodeBaseView startNodeView = startPort.node as LogicNodeBaseView;
+            //LogicNodeBaseView startNodeView = startPort.node as LogicNodeBaseView;
             foreach (var port in ports.ToList())
             {
-                if (startPort.node == port.node ||
-                    port.direction == Direction.Output ||
-                    startPort.portType != port.portType)
+                if (startPort.node == port.node)
                 {
                     continue;
                 }
@@ -66,10 +64,12 @@ namespace Logic.Editor
                 {
                     continue;
                 }
-                var nodeView = port.node as LogicNodeBaseView;
-                if (nodeView.CanAcceptLink(startNodeView))
+                if (startPort.userData is IPortData startData && port.userData is IPortData portData)
                 {
-                    compatiblePorts.Add(port);
+                    if (startData.CanLink(portData) && portData.CanAcceptLink(startData))
+                    {
+                        compatiblePorts.Add(port);
+                    }
                 }
             }
             return compatiblePorts;
